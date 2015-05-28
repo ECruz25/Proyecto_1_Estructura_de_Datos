@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>455</width>
+    <height>393</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="QPushButton" name="ir_al_bano_btn">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>300</y>
+      <width>71</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Ir al baño</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="dormir_btn">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>300</y>
+      <width>71</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Dormir</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="comer_btn">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>300</y>
+      <width>71</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Comer</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="curar_btn">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>300</y>
+      <width>71</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Curar</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>80</y>
+      <width>81</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string notr="true"/>
+    </property>
+    <property name="textFormat">
+     <enum>Qt::PlainText</enum>
+    </property>
+    <property name="pixmap">
+     <pixmap>Zuccitchi.png</pixmap>
+    </property>
+   </widget>
+   <widget class="QGraphicsView" name="graphicsView">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>70</y>
+      <width>111</width>
+      <height>111</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QProgressBar" name="progressBar_salud">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>20</y>
+      <width>181</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="minimum">
+     <number>0</number>
+    </property>
+    <property name="maximum">
+     <number>100</number>
+    </property>
+    <property name="value">
+     <number>40</number>
+    </property>
+    <property name="format">
+     <string notr="true">%p%</string>
+    </property>
+   </widget>
+   <widget class="QProgressBar" name="progressBar_actividad_desechos">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>230</y>
+      <width>31</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="value">
+     <number>24</number>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Vertical</enum>
+    </property>
+   </widget>
+   <widget class="QProgressBar" name="progressBar_actividad_hambre">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>230</y>
+      <width>31</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="value">
+     <number>24</number>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Vertical</enum>
+    </property>
+   </widget>
+   <widget class="QProgressBar" name="progressBar_actividad_salud">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>230</y>
+      <width>31</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="value">
+     <number>24</number>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Vertical</enum>
+    </property>
+   </widget>
+   <widget class="QProgressBar" name="progressBar_actividad_sueno">
+    <property name="geometry">
+     <rect>
+      <x>290</x>
+      <y>230</y>
+      <width>31</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="value">
+     <number>24</number>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Vertical</enum>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox">
+    <property name="geometry">
+     <rect>
+      <x>250</x>
+      <y>120</y>
+      <width>85</width>
+      <height>27</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="refresh_btn">
+    <property name="geometry">
+     <rect>
+      <x>260</x>
+      <y>150</y>
+      <width>61</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Refresh</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="select_btn">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>120</y>
+      <width>81</width>
+      <height>27</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Select</string>
+    </property>
+   </widget>
+   <zorder>ir_al_bano_btn</zorder>
+   <zorder>dormir_btn</zorder>
+   <zorder>comer_btn</zorder>
+   <zorder>curar_btn</zorder>
+   <zorder>graphicsView</zorder>
+   <zorder>label</zorder>
+   <zorder>progressBar_salud</zorder>
+   <zorder>progressBar_actividad_desechos</zorder>
+   <zorder>progressBar_actividad_hambre</zorder>
+   <zorder>progressBar_actividad_salud</zorder>
+   <zorder>progressBar_actividad_sueno</zorder>
+   <zorder>comboBox</zorder>
+   <zorder>refresh_btn</zorder>
+   <zorder>select_btn</zorder>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>455</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuNew">
+    <property name="title">
+     <string>New..</string>
+    </property>
+    <addaction name="actionCreate_new"/>
+   </widget>
+   <addaction name="menuNew"/>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>LeftToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionCreate_new">
+   <property name="text">
+    <string>Create new..</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>
