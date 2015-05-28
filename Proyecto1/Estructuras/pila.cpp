@@ -10,16 +10,14 @@ Actividad* Pila::getTope()
     return this->tope;
 }
 
-bool Pila::sacar()
+void Pila::sacar()
 {
     if(tope)
     {
         Actividad* t = tope;
         tope = tope->anterior;
         delete t;
-        return true;
     }
-    return false;
 }
 
 void Pila::meter(Actividad* obj)
@@ -42,5 +40,5 @@ bool Pila::vacia()
 
 void Pila::anular()
 {
-    while(sacar());
+
 }

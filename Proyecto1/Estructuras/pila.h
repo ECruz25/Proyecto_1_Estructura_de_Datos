@@ -11,7 +11,7 @@ public:
     Actividad* tope;
     Actividad* getTope();
     int size;
-    bool sacar();
+    void sacar();
     void meter(Actividad* obj);
     bool vacia();
     void anular();

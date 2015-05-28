@@ -12,12 +12,26 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->label->setPixmap(pix);
 
     ui->select_btn->hide();
+    ui->select_btn->hide();
+    ui->progressBar_actividad_desechos->hide();
+    ui->progressBar_actividad_hambre->hide();
+    ui->progressBar_actividad_salud->hide();
+    ui->progressBar_actividad_sueno->hide();
+    ui->progressBar_salud->hide();
+    ui->ir_al_bano_btn->hide();
+    ui->comer_btn->hide();
+    ui->curar_btn->hide();
+    ui->dormir_btn->hide();
+    ui->label->hide();
+
+    create_window.show();
 
     pila_desechos = new Pila;
     pila_enfermedades = new Pila;
     pila_hambre = new Pila;
     pila_sueno = new Pila;
 
+    mTimer = new QTimer(this);
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(refrescar_barras()));
 
@@ -60,22 +74,81 @@ void MainWindow::refrescar_barras()
 
 void MainWindow::on_curar_btn_clicked()
 { 
-    create_window.granja->getPos(buscar(get_nombre()))->vida -= 10;
+    if(create_window.granja->getPos(buscar(get_nombre()))->enfermedad > 0 &&
+            create_window.granja->getPos(buscar(get_nombre()))->enfermedad <= 100)
+    {
+        if(pila_enfermedades->getTope())
+        {
+            std::cout<<pila_enfermedades->getTope()->valor<<std::endl;
+            pila_enfermedades->sacar();
+            if(pila_enfermedades->getTope())
+                create_window.granja->getPos(buscar(get_nombre()))->enfermedad = pila_enfermedades->getTope()->valor;
+            else
+                create_window.granja->getPos(buscar(get_nombre()))->enfermedad = 0;
+        }
+        else
+            std::cout<<"No entro"<<std::endl;
+    }
+    actualizar_valores(get_nombre());
 }
 
 void MainWindow::on_ir_al_bano_btn_clicked()
 {
+    if(create_window.granja->getPos(buscar(get_nombre()))->desechos > 0 &&
+            create_window.granja->getPos(buscar(get_nombre()))->desechos <= 100)
+    {
+        if(pila_desechos->getTope())
+        {
+            std::cout<<pila_desechos->getTope()->valor<<std::endl;
+            pila_desechos->sacar();
+            if(pila_desechos->getTope())
+                create_window.granja->getPos(buscar(get_nombre()))->desechos = pila_desechos->getTope()->valor;
+            else
+                create_window.granja->getPos(buscar(get_nombre()))->desechos = 0;
+        }
+        else
+            std::cout<<"No entro"<<std::endl;
 
+    }
+    actualizar_valores(get_nombre());
 }
 
 void MainWindow::on_comer_btn_clicked()
 {
-
+    if(create_window.granja->getPos(buscar(get_nombre()))->hambre > 0 &&
+            create_window.granja->getPos(buscar(get_nombre()))->hambre <= 100)
+    {
+        if(pila_hambre->getTope())
+        {
+            std::cout<<pila_hambre->getTope()->valor<<std::endl;
+            pila_hambre->sacar();
+            if(pila_hambre->getTope())
+                create_window.granja->getPos(buscar(get_nombre()))->hambre = pila_hambre->getTope()->valor;
+            else
+                create_window.granja->getPos(buscar(get_nombre()))->hambre = 0;
+        }
+        else
+            std::cout<<"No entro"<<std::endl;
+    }
+    actualizar_valores(get_nombre());
 }
 
 void MainWindow::on_dormir_btn_clicked()
 {
-    refrescar_barras();
+    if(create_window.granja->getPos(buscar(get_nombre()))->sueno > 0 &&
+            create_window.granja->getPos(buscar(get_nombre()))->sueno <= 100)
+    {
+        if(pila_sueno->getTope())
+        {
+            std::cout<<pila_sueno->getTope()->valor<<std::endl;
+            pila_sueno->sacar();
+            if(pila_sueno->getTope())
+                create_window.granja->getPos(buscar(get_nombre()))->sueno = pila_sueno->getTope()->valor;
+            else
+                create_window.granja->getPos(buscar(get_nombre()))->sueno = 0;
+        }
+    }
+    actualizar_valores(get_nombre());
 }
 
 void MainWindow::on_actionCreate_new_triggered()
@@ -125,10 +198,20 @@ QString MainWindow::get_nombre()
 
 void MainWindow::on_select_btn_clicked()
 {
+    ui->progressBar_actividad_desechos->show();
+    ui->progressBar_actividad_hambre->show();
+    ui->progressBar_actividad_salud->show();
+    ui->progressBar_actividad_sueno->show();
+    ui->progressBar_salud->show();
+    ui->ir_al_bano_btn->show();
+    ui->comer_btn->show();
+    ui->curar_btn->show();
+    ui->dormir_btn->show();
+    ui->label->show();
     actualizar_valores(get_nombre());
     connect(timer, SIGNAL(timeout()), this, SLOT(hacer_dano()));
-    timer->start(250);
-
+    connect(timer, SIGNAL(timeout()),this, SLOT(perder_vida()));
+    timer->start(1000);
 }
 
 void MainWindow::hacer_dano()
@@ -141,15 +224,21 @@ void MainWindow::hacer_dano()
         if(create_window.granja->getPos(buscar(get_nombre()))->desechos >= 0 &&
                 create_window.granja->getPos(buscar(get_nombre()))->desechos < 100)
         {
-            if(pila_desechos->getTope() != NULL)
+            if(pila_desechos->getTope())
             {
-                create_window.granja->getPos(buscar(get_nombre()))->desechos += pila_desechos->getTope()->valor;
+                if(pila_desechos->getTope()->valor >= 0)
+                {
+                    Actividad* temp = new Actividad(pila_desechos->getTope()->valor+10);
+                    pila_desechos->meter(temp);
+                    std::cout<< "desehcos: "<<pila_desechos->getTope()->valor<<std::endl;
+                }
             }
-            else
+            else if(!pila_desechos->getTope())
             {
-                ir_al_bano = new Actividad(1);
+                ir_al_bano = new Actividad(10);
                 pila_desechos->meter(ir_al_bano);
             }
+            create_window.granja->getPos(buscar(get_nombre()))->desechos = pila_desechos->getTope()->valor;
         }
         actualizar_valores(get_nombre());
         break;
@@ -157,15 +246,21 @@ void MainWindow::hacer_dano()
         if(create_window.granja->getPos(buscar(get_nombre()))->hambre >= 0 &&
                 create_window.granja->getPos(buscar(get_nombre()))->hambre < 100)
         {
-            if(pila_hambre->getTope() != NULL)
+            if(pila_hambre->getTope())
             {
-                create_window.granja->getPos(buscar(get_nombre()))->hambre += pila_hambre->getTope()->valor;
+                if(pila_hambre->getTope()->valor >= 0)
+                {
+                    Actividad* temp = new Actividad(pila_hambre->getTope()->valor+10);
+                    pila_hambre->meter(temp);
+                    std::cout<< "hambre: "<<pila_hambre->getTope()->valor<<std::endl;
+                }
             }
-            else
+            else if(!pila_hambre->getTope())
             {
-                comer = new Actividad(1);
+                comer = new Actividad(10);
                 pila_hambre->meter(comer);
             }
+            create_window.granja->getPos(buscar(get_nombre()))->hambre = pila_hambre->getTope()->valor;
         }
         actualizar_valores(get_nombre());
         break;
@@ -173,15 +268,21 @@ void MainWindow::hacer_dano()
         if(create_window.granja->getPos(buscar(get_nombre()))->enfermedad >= 0 &&
                 create_window.granja->getPos(buscar(get_nombre()))->enfermedad < 100)
         {
-            if(pila_enfermedades->getTope() != NULL)
+            if(pila_enfermedades->getTope())
             {
-                create_window.granja->getPos(buscar(get_nombre()))->enfermedad += pila_enfermedades->getTope()->valor;
+                if(pila_enfermedades->getTope()->valor >= 0)
+                {
+                    Actividad* temp = new Actividad(pila_enfermedades->getTope()->valor+10);
+                    pila_enfermedades->meter(temp);
+                    std::cout<< "enfermedad: "<<pila_enfermedades->getTope()->valor<<std::endl;
+                }
             }
-            else
+            else if(!pila_enfermedades->getTope())
             {
-                sanar = new Actividad(1);
+                sanar = new Actividad(10);
                 pila_enfermedades->meter(sanar);
             }
+            create_window.granja->getPos(buscar(get_nombre()))->enfermedad = pila_enfermedades->getTope()->valor;
         }
         actualizar_valores(get_nombre());
         break;
@@ -189,15 +290,21 @@ void MainWindow::hacer_dano()
         if(create_window.granja->getPos(buscar(get_nombre()))->sueno >= 0 &&
                 create_window.granja->getPos(buscar(get_nombre()))->sueno < 100)
         {
-            if(pila_sueno->getTope() != NULL)
+            if(pila_sueno->getTope())
             {
-                create_window.granja->getPos(buscar(get_nombre()))->sueno += pila_sueno->getTope()->valor;
+                if(pila_sueno->getTope()->valor >= 0)
+                {
+                    Actividad* temp = new Actividad(pila_sueno->getTope()->valor+10);
+                    pila_sueno->meter(temp);
+                    std::cout<< "Sueño: "<<pila_sueno->getTope()->valor<<std::endl;
+                }
             }
-            else
+            else if(!pila_sueno->getTope())
             {
-                dormir = new Actividad(1);
+                dormir = new Actividad(10);
                 pila_sueno->meter(dormir);
             }
+            create_window.granja->getPos(buscar(get_nombre()))->sueno = pila_sueno->getTope()->valor;
         }
         actualizar_valores(get_nombre());
         break;
@@ -213,4 +320,16 @@ void MainWindow::showTime()
 void MainWindow::on_actionSettings_triggered()
 {
 
+}
+
+void MainWindow::perder_vida()
+{
+    if(pila_desechos->getTope())
+        ui->progressBar_salud->setValue(ui->progressBar_salud->value()-(pila_desechos->getTope()->valor * 0.10));
+    if(pila_enfermedades->getTope())
+        ui->progressBar_salud->setValue(ui->progressBar_salud->value()-(pila_enfermedades->getTope()->valor * 0.10));
+    if(pila_hambre->getTope())
+        ui->progressBar_salud->setValue(ui->progressBar_salud->value()-(pila_hambre->getTope()->valor * 0.10));
+    if(pila_sueno->getTope())
+        ui->progressBar_salud->setValue(ui->progressBar_salud->value()-(pila_sueno->getTope()->valor * 0.10));
 }

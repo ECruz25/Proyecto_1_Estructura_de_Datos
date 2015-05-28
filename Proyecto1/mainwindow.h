@@ -22,6 +22,7 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     QTimer* timer;
+    QTimer* mTimer;
 
 private slots:
     void on_curar_btn_clicked();
@@ -51,6 +52,8 @@ private slots:
     void actualizar_valores(QString name);
 
     void on_actionSettings_triggered();
+
+    void perder_vida();
 
 private:
     Pila* pila_desechos;
