@@ -19,7 +19,10 @@ SOURCES += main.cpp\
     granja.cpp \
     actividad.cpp \
     create.cpp \
-    settings.cpp
+    settings.cpp \
+    Estructuras/cola.cpp \
+    moneda.cpp \
+    Estructuras/nodo.cpp
 
 HEADERS  += mainwindow.h \
     tamagotchi.h \
@@ -27,7 +30,10 @@ HEADERS  += mainwindow.h \
     granja.h \
     actividad.h \
     create.h \
-    settings.h
+    settings.h \
+    Estructuras/cola.h \
+    moneda.h \
+    Estructuras/nodo.h
 
 FORMS    += mainwindow.ui \
     create.ui \

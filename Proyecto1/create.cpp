@@ -9,9 +9,9 @@ Create::Create(QWidget *parent) :
 {
     ui->setupUi(this);
     granja = new Granja();
-    ui->comboBox->addItem("Perro");
-    ui->comboBox->addItem("Gato");
-    ui->comboBox->addItem("Caballo");
+    ui->comboBox->addItem("Fuerte");
+    ui->comboBox->addItem("Inteligente");
+    ui->comboBox->addItem("Habil");
 }
 
 Create::~Create()
@@ -22,7 +22,6 @@ Create::~Create()
 void Create::on_buttonBox_accepted()
 {
     granja->add(ui->name_edit->text(), ui->comboBox->currentText());
-    std::cout<<ui->comboBox->itemData(ui->comboBox->currentIndex()).toString().toStdString()<<std::endl;
 }
 
 void Create::on_Create_destroyed(){}

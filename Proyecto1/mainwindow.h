@@ -7,6 +7,7 @@
 #include "granja.h"
 #include "create.h"
 #include "Estructuras/pila.h"
+#include "Estructuras/cola.h"
 #include "actividad.h"
 #include "stdlib.h"
 

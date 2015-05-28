@@ -1,1 +1,2 @@
-# Proyecto_1_Estructura_de_Datos
+# Proyecto 1
+# Tamagotchi

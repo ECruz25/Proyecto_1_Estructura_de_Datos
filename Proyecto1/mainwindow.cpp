@@ -135,6 +135,10 @@ void MainWindow::on_comer_btn_clicked()
 
 void MainWindow::on_dormir_btn_clicked()
 {
+
+    timer->disconnect();
+
+
     if(create_window.granja->getPos(buscar(get_nombre()))->sueno > 0 &&
             create_window.granja->getPos(buscar(get_nombre()))->sueno <= 100)
     {
@@ -162,6 +166,9 @@ void MainWindow::on_refresh_btn_clicked()
     {
         ui->select_btn->show();
     }
+
+    ui->comboBox->clear();
+
     for(int x = 0; x < create_window.granja->size; x++)
     {
         ui->comboBox->addItem(create_window.granja->getPos(x)->nombre);
@@ -187,7 +194,6 @@ void MainWindow::actualizar_valores(QString name)
     ui->progressBar_actividad_salud->setValue(create_window.granja->getPos(buscar(name))->enfermedad);
     ui->progressBar_actividad_sueno->setValue(create_window.granja->getPos(buscar(name))->sueno);
     ui->progressBar_actividad_hambre->setValue(create_window.granja->getPos(buscar(name))->hambre);
-
     refrescar_barras();
 }
 
@@ -211,14 +217,12 @@ void MainWindow::on_select_btn_clicked()
     actualizar_valores(get_nombre());
     connect(timer, SIGNAL(timeout()), this, SLOT(hacer_dano()));
     connect(timer, SIGNAL(timeout()),this, SLOT(perder_vida()));
-    timer->start(1000);
+    timer->start(500);
 }
 
 void MainWindow::hacer_dano()
 {
-    valor = rand()%4;
-
-    switch(valor)
+    switch(rand()%4)
     {
         case 0:
         if(create_window.granja->getPos(buscar(get_nombre()))->desechos >= 0 &&
@@ -319,17 +323,11 @@ void MainWindow::showTime()
 
 void MainWindow::on_actionSettings_triggered()
 {
-
 }
 
 void MainWindow::perder_vida()
 {
-    if(pila_desechos->getTope())
-        ui->progressBar_salud->setValue(ui->progressBar_salud->value()-(pila_desechos->getTope()->valor * 0.10));
-    if(pila_enfermedades->getTope())
-        ui->progressBar_salud->setValue(ui->progressBar_salud->value()-(pila_enfermedades->getTope()->valor * 0.10));
-    if(pila_hambre->getTope())
-        ui->progressBar_salud->setValue(ui->progressBar_salud->value()-(pila_hambre->getTope()->valor * 0.10));
-    if(pila_sueno->getTope())
-        ui->progressBar_salud->setValue(ui->progressBar_salud->value()-(pila_sueno->getTope()->valor * 0.10));
+    int dano = ui->progressBar_actividad_desechos->value() + ui->progressBar_actividad_hambre->value() + ui->progressBar_actividad_salud->value() + ui->progressBar_actividad_sueno->value();
+    create_window.granja->getPos(buscar(get_nombre()))->vida = 100 - (dano * 0.25);
+    actualizar_valores(get_nombre());
 }
