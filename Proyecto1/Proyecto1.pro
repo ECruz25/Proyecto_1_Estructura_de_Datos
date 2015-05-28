@@ -18,14 +18,17 @@ SOURCES += main.cpp\
     Estructuras/pila.cpp \
     granja.cpp \
     actividad.cpp \
-    create.cpp
+    create.cpp \
+    settings.cpp
 
 HEADERS  += mainwindow.h \
     tamagotchi.h \
     Estructuras/pila.h \
     granja.h \
     actividad.h \
-    create.h
+    create.h \
+    settings.h
 
 FORMS    += mainwindow.ui \
-    create.ui
+    create.ui \
+    settings.ui

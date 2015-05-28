@@ -2,7 +2,7 @@
 
 Pila::Pila()
 {
-
+    this->tope = NULL;
 }
 
 Actividad* Pila::getTope()

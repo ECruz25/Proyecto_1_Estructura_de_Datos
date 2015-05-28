@@ -7,11 +7,16 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QPixmap pix("/home/ecruz25/Documents/Clases Unitec/Estructura de Datos/Proyecto1/Zuccitchi.png");
+    QPixmap pix("/home/ecruz25/Documents/Clases Unitec/Estructura de Datos/Proyecto 1/Proyecto1/Zuccitchi.png");
 
     ui->label->setPixmap(pix);
 
     ui->select_btn->hide();
+
+    pila_desechos = new Pila;
+    pila_enfermedades = new Pila;
+    pila_hambre = new Pila;
+    pila_sueno = new Pila;
 
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(refrescar_barras()));
@@ -54,38 +59,18 @@ void MainWindow::refrescar_barras()
 }
 
 void MainWindow::on_curar_btn_clicked()
-{
-    ui->progressBar_salud->setValue(ui->progressBar_salud->value()+5);
+{ 
+    create_window.granja->getPos(buscar(get_nombre()))->vida -= 10;
 }
 
 void MainWindow::on_ir_al_bano_btn_clicked()
 {
-    if(create_window.granja->getPos(buscar(get_nombre()))->hambre >= 0 &&
-            create_window.granja->getPos(buscar(get_nombre()))->hambre < 100)
-    {
-        create_window.granja->getPos(buscar(get_nombre()))->hambre += 20;
 
-        if(create_window.granja->getPos(buscar(get_nombre()))->desechos > 0)
-        {
-            create_window.granja->getPos(buscar(get_nombre()))->desechos -= 20;
-        }
-    }
-    actualizar_valores(get_nombre());
 }
 
 void MainWindow::on_comer_btn_clicked()
 {
-    if(create_window.granja->getPos(buscar(get_nombre()))->desechos >= 0 &&
-            create_window.granja->getPos(buscar(get_nombre()))->desechos < 100)
-    {
-        create_window.granja->getPos(buscar(get_nombre()))->desechos += 20;
 
-        if(create_window.granja->getPos(buscar(get_nombre()))->hambre > 0)
-        {
-            create_window.granja->getPos(buscar(get_nombre()))->hambre -= 20;
-        }
-    }
-    actualizar_valores(get_nombre());
 }
 
 void MainWindow::on_dormir_btn_clicked()
@@ -142,25 +127,90 @@ void MainWindow::on_select_btn_clicked()
 {
     actualizar_valores(get_nombre());
     connect(timer, SIGNAL(timeout()), this, SLOT(hacer_dano()));
-    timer->start(1000);
+    timer->start(250);
+
 }
 
 void MainWindow::hacer_dano()
 {
-    if(create_window.granja->getPos(buscar(get_nombre()))->hambre >= 0 &&
-            create_window.granja->getPos(buscar(get_nombre()))->hambre < 100)
-    {
-        create_window.granja->getPos(buscar(get_nombre()))->hambre += 20;
+    valor = rand()%4;
 
-        if(create_window.granja->getPos(buscar(get_nombre()))->desechos > 0)
+    switch(valor)
+    {
+        case 0:
+        if(create_window.granja->getPos(buscar(get_nombre()))->desechos >= 0 &&
+                create_window.granja->getPos(buscar(get_nombre()))->desechos < 100)
         {
-            create_window.granja->getPos(buscar(get_nombre()))->desechos -= 20;
+            if(pila_desechos->getTope() != NULL)
+            {
+                create_window.granja->getPos(buscar(get_nombre()))->desechos += pila_desechos->getTope()->valor;
+            }
+            else
+            {
+                ir_al_bano = new Actividad(1);
+                pila_desechos->meter(ir_al_bano);
+            }
         }
+        actualizar_valores(get_nombre());
+        break;
+        case 1:
+        if(create_window.granja->getPos(buscar(get_nombre()))->hambre >= 0 &&
+                create_window.granja->getPos(buscar(get_nombre()))->hambre < 100)
+        {
+            if(pila_hambre->getTope() != NULL)
+            {
+                create_window.granja->getPos(buscar(get_nombre()))->hambre += pila_hambre->getTope()->valor;
+            }
+            else
+            {
+                comer = new Actividad(1);
+                pila_hambre->meter(comer);
+            }
+        }
+        actualizar_valores(get_nombre());
+        break;
+        case 2:
+        if(create_window.granja->getPos(buscar(get_nombre()))->enfermedad >= 0 &&
+                create_window.granja->getPos(buscar(get_nombre()))->enfermedad < 100)
+        {
+            if(pila_enfermedades->getTope() != NULL)
+            {
+                create_window.granja->getPos(buscar(get_nombre()))->enfermedad += pila_enfermedades->getTope()->valor;
+            }
+            else
+            {
+                sanar = new Actividad(1);
+                pila_enfermedades->meter(sanar);
+            }
+        }
+        actualizar_valores(get_nombre());
+        break;
+        case 3:
+        if(create_window.granja->getPos(buscar(get_nombre()))->sueno >= 0 &&
+                create_window.granja->getPos(buscar(get_nombre()))->sueno < 100)
+        {
+            if(pila_sueno->getTope() != NULL)
+            {
+                create_window.granja->getPos(buscar(get_nombre()))->sueno += pila_sueno->getTope()->valor;
+            }
+            else
+            {
+                dormir = new Actividad(1);
+                pila_sueno->meter(dormir);
+            }
+        }
+        actualizar_valores(get_nombre());
+        break;
     }
-    actualizar_valores(get_nombre());
+
 }
 
 void MainWindow::showTime()
+{
+
+}
+
+void MainWindow::on_actionSettings_triggered()
 {
 
 }

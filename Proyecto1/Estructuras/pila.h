@@ -10,6 +10,7 @@ public:
     Actividad* actividad;
     Actividad* tope;
     Actividad* getTope();
+    int size;
     bool sacar();
     void meter(Actividad* obj);
     bool vacia();

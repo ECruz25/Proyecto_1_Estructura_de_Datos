@@ -50,10 +50,12 @@ private slots:
 
     void actualizar_valores(QString name);
 
+    void on_actionSettings_triggered();
+
 private:
     Pila* pila_desechos;
     Pila* pila_enfermedades;
-    Pila* pila_bano;
+    Pila* pila_hambre;
     Pila* pila_sueno;
 
     Actividad* dormir;
@@ -72,6 +74,7 @@ private:
     Create create_window;
 
     int tamagotchi_pos;
+    int valor;
 };
 
 #endif // MAINWINDOW_H
