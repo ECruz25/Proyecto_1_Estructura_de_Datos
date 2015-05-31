@@ -16,6 +16,7 @@ public:
     void imprimir();
     int u;
     int size;
+    void regalar_monedas(int cant, QString nombre);
 
 private:
     Tamagotchi* inicio;

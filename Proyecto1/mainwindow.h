@@ -6,6 +6,7 @@
 #include <QDateTime>
 #include "granja.h"
 #include "create.h"
+#include "transacciones.h"
 #include "Estructuras/pila.h"
 #include "Estructuras/cola.h"
 #include "actividad.h"
@@ -56,7 +57,18 @@ private slots:
 
     void perder_vida();
 
+    void on_actionTransacciones_triggered();
+
+    void disable_buttons();
+
+    void enable_buttons();
+
+    bool chequear_estado();
+
+    void imprimir_victorias_derrotas();
 private:
+    Ui::MainWindow *ui;
+
     Pila* pila_desechos;
     Pila* pila_enfermedades;
     Pila* pila_hambre;
@@ -73,12 +85,12 @@ private:
     QString safe;
     QString danger;
 
-    Ui::MainWindow *ui;
-
     Create create_window;
 
     int tamagotchi_pos;
     int valor;
+
+    Transacciones transacciones;
 };
 
 #endif // MAINWINDOW_H

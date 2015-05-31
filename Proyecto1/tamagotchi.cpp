@@ -14,10 +14,36 @@ Tamagotchi::Tamagotchi(QString nombre, QString tipo)
     this->enfermedad = 0;
     this->cant_monedas = 0;
     this->tipo = tipo;
+
+    if(tipo == "Fuerte")
+    {
+        resistencia_hambre = 0;
+        resistencia_enfermedades = 5;
+        resistencia_sueno = 0;
+    }
+    else if(tipo == "Inteligente")
+    {
+        resistencia_hambre = 0;
+        resistencia_enfermedades = 0;
+        resistencia_sueno = 5;
+    }
+    else if(tipo == "Habil")
+    {
+        resistencia_hambre = 5;
+        resistencia_enfermedades = 0;
+        resistencia_sueno = 0;
+    }
 }
 
-void Tamagotchi::regalar_monedas(int cant, QString nombre)
+void Tamagotchi::recibir_monedas(int cant)
 {
 
 }
 
+void Tamagotchi::quitar_monedas(int cant)
+{
+    for(int x = 0; x < cant; x++)
+    {
+        monedas_ganadas->quitarCola();
+    }
+}

@@ -7,10 +7,6 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QPixmap pix("/home/ecruz25/Documents/Clases Unitec/Estructura de Datos/Proyecto 1/Proyecto1/Zuccitchi.png");
-
-    ui->label->setPixmap(pix);
-
     ui->select_btn->hide();
     ui->select_btn->hide();
     ui->progressBar_actividad_desechos->hide();
@@ -90,6 +86,7 @@ void MainWindow::on_curar_btn_clicked()
             std::cout<<"No entro"<<std::endl;
     }
     actualizar_valores(get_nombre());
+    disable_buttons();
 }
 
 void MainWindow::on_ir_al_bano_btn_clicked()
@@ -111,6 +108,7 @@ void MainWindow::on_ir_al_bano_btn_clicked()
 
     }
     actualizar_valores(get_nombre());
+    disable_buttons();
 }
 
 void MainWindow::on_comer_btn_clicked()
@@ -131,14 +129,11 @@ void MainWindow::on_comer_btn_clicked()
             std::cout<<"No entro"<<std::endl;
     }
     actualizar_valores(get_nombre());
+    disable_buttons();
 }
 
 void MainWindow::on_dormir_btn_clicked()
 {
-
-    timer->disconnect();
-
-
     if(create_window.granja->getPos(buscar(get_nombre()))->sueno > 0 &&
             create_window.granja->getPos(buscar(get_nombre()))->sueno <= 100)
     {
@@ -153,6 +148,7 @@ void MainWindow::on_dormir_btn_clicked()
         }
     }
     actualizar_valores(get_nombre());
+    disable_buttons();
 }
 
 void MainWindow::on_actionCreate_new_triggered()
@@ -204,6 +200,23 @@ QString MainWindow::get_nombre()
 
 void MainWindow::on_select_btn_clicked()
 {
+    if(create_window.granja->getPos(buscar(get_nombre()))->tipo == "Fuerte")
+    {
+        QPixmap pix("/home/ecruz25/Documents/Clases Unitec/Estructura de Datos/Proyecto 1/Proyecto1/Nikatchi.png");
+        ui->label->setPixmap(pix);
+    }
+    else if(create_window.granja->getPos(buscar(get_nombre()))->tipo == "Inteligente")
+    {
+        QPixmap pix("/home/ecruz25/Documents/Clases Unitec/Estructura de Datos/Proyecto 1/Proyecto1/Zuccitchi.png");
+        ui->label->setPixmap(pix);
+    }
+    else if(create_window.granja->getPos(buscar(get_nombre()))->tipo == "Habil")
+    {
+        QPixmap pix("/home/ecruz25/Documents/Clases Unitec/Estructura de Datos/Proyecto 1/Proyecto1/Zuccitchi.png");
+        ui->label->setPixmap(pix);
+    }
+
+    actualizar_valores(get_nombre());
     ui->progressBar_actividad_desechos->show();
     ui->progressBar_actividad_hambre->show();
     ui->progressBar_actividad_salud->show();
@@ -214,7 +227,6 @@ void MainWindow::on_select_btn_clicked()
     ui->curar_btn->show();
     ui->dormir_btn->show();
     ui->label->show();
-    actualizar_valores(get_nombre());
     connect(timer, SIGNAL(timeout()), this, SLOT(hacer_dano()));
     connect(timer, SIGNAL(timeout()),this, SLOT(perder_vida()));
     timer->start(500);
@@ -327,7 +339,61 @@ void MainWindow::on_actionSettings_triggered()
 
 void MainWindow::perder_vida()
 {
-    int dano = ui->progressBar_actividad_desechos->value() + ui->progressBar_actividad_hambre->value() + ui->progressBar_actividad_salud->value() + ui->progressBar_actividad_sueno->value();
+    int dano = ui->progressBar_actividad_desechos->value() +
+            (ui->progressBar_actividad_hambre->value() - create_window.granja->getPos(buscar(get_nombre()))->resistencia_hambre) +
+            (ui->progressBar_actividad_salud->value() - create_window.granja->getPos(buscar(get_nombre()))->resistencia_hambre) +
+            (ui->progressBar_actividad_sueno->value() - create_window.granja->getPos(buscar(get_nombre()))->resistencia_enfermedades);
     create_window.granja->getPos(buscar(get_nombre()))->vida = 100 - (dano * 0.25);
     actualizar_valores(get_nombre());
+}
+
+void MainWindow::on_actionTransacciones_triggered()
+{
+    transacciones.show();
+}
+
+void MainWindow::disable_buttons()
+{
+    ui->comer_btn->hide();
+    ui->curar_btn->hide();
+    ui->dormir_btn->hide();
+    ui->ir_al_bano_btn->hide();
+    QTimer::singleShot(750, this, SLOT(enable_buttons()));
+}
+
+void MainWindow::enable_buttons()
+{
+    ui->comer_btn->show();
+    ui->curar_btn->show();
+    ui->dormir_btn->show();
+    ui->ir_al_bano_btn->show();
+}
+
+void MainWindow::chequear_estado()
+{
+    if(ui->progressBar_actividad_desechos->value() == 100)
+    {
+        //agregar a cola de derrotas
+    }
+    else if(ui->progressBar_actividad_desechos->value() == 100)
+    {
+        //agregar a cola de derrotas
+    }
+    else if(ui->progressBar_actividad_desechos->value() == 100)
+    {
+        //agregar a cola de derrotas
+    }
+    else if(ui->progressBar_actividad_desechos->value() == 100)
+    {
+        //agregar a cola de derrotas
+    }
+    else
+    {
+        //agregar a cosa con una victoria
+    }
+}
+
+void MainWindow::imprimir_victorias_derrotas()
+{
+
 }

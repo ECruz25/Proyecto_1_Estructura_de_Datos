@@ -22,7 +22,8 @@ SOURCES += main.cpp\
     settings.cpp \
     Estructuras/cola.cpp \
     moneda.cpp \
-    Estructuras/nodo.cpp
+    Estructuras/nodo.cpp \
+    transacciones.cpp
 
 HEADERS  += mainwindow.h \
     tamagotchi.h \
@@ -33,8 +34,10 @@ HEADERS  += mainwindow.h \
     settings.h \
     Estructuras/cola.h \
     moneda.h \
-    Estructuras/nodo.h
+    Estructuras/nodo.h \
+    transacciones.h
 
 FORMS    += mainwindow.ui \
     create.ui \
-    settings.ui
+    settings.ui \
+    transacciones.ui

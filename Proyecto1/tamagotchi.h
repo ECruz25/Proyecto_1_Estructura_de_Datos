@@ -2,6 +2,7 @@
 #define TAMAGOTCHI_H
 
 #include <QString>
+#include <QPixmap>
 
 #include "Estructuras/pila.h"
 #include "Estructuras/cola.h"
@@ -23,7 +24,11 @@ public:
     Tamagotchi* siguiente;
     Cola* monedas_ganadas;
     Cola* monedas_recibidas;
-    void regalar_monedas(int cant, QString nombre);
+    void recibir_monedas(int cant);
+    void quitar_monedas(int cant);
+    int resistencia_sueno;
+    int resistencia_hambre;
+    int resistencia_enfermedades;
 };
 
 #endif // TAMAGOTCHI_H

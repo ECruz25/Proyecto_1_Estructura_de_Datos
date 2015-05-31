@@ -113,3 +113,13 @@ bool Granja::isEmpty()
     return false;
 }
 
+void Granja::regalar_monedas(int cant, QString nombre)
+{
+    if(!inicio)
+        return;
+    Tamagotchi* temp = inicio;
+    if(temp->nombre == nombre)
+    {
+        temp->recibir_monedas(cant);
+    }
+}
