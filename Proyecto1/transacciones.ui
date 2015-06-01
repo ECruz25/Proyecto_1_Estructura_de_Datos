@@ -29,38 +29,25 @@
     <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
    </property>
   </widget>
-  <widget class="QPushButton" name="transferir_btn">
+  <widget class="QPushButton" name="regalar_btn">
    <property name="geometry">
     <rect>
-     <x>130</x>
-     <y>50</y>
-     <width>99</width>
+     <x>140</x>
+     <y>130</y>
+     <width>111</width>
      <height>27</height>
     </rect>
    </property>
    <property name="text">
-    <string>Transferir</string>
+    <string>Regalar</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="estado_cuenta_btn">
+  <widget class="QComboBox" name="comboBox">
    <property name="geometry">
     <rect>
-     <x>110</x>
-     <y>140</y>
-     <width>141</width>
-     <height>27</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Estado de cuenta</string>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="spinBox">
-   <property name="geometry">
-    <rect>
-     <x>260</x>
-     <y>50</y>
-     <width>48</width>
+     <x>150</x>
+     <y>70</y>
+     <width>85</width>
      <height>27</height>
     </rect>
    </property>

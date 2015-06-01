@@ -1,15 +1,15 @@
-#include "cola.h"
+#include "billetera.h"
 
-Cola::Cola()
+Billetera::Billetera()
 {
     frente = NULL;
     ultimo = NULL;
     size = 0;
 }
 
-void Cola::quitarCola()
+void Billetera::quitar()
 {
-    QNodo* temp;
+    Moneda* temp;
     if(frente)
     {
         temp = frente;
@@ -19,7 +19,7 @@ void Cola::quitarCola()
     }
 }
 
-void Cola::ponerCola(QNodo* nodo)
+void Billetera::poner(Moneda* nodo)
 {
     if(frente == NULL)
     {
@@ -33,17 +33,19 @@ void Cola::ponerCola(QNodo* nodo)
     size++;
 }
 
-QNodo* Cola::getFrente()
+Moneda* Billetera::getFrente()
 {
     return frente;
 }
+
 /*
-void Cola::anular()
+void Billetera::anular()
 {
-    while(quitarCola());
+    while(quitarBilletera());
 }
 */
-bool Cola::vacia()
+
+bool Billetera::vacia()
 {
     if(frente)
     {

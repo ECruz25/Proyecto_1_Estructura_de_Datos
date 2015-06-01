@@ -6,7 +6,9 @@
 
 #include "Estructuras/pila.h"
 #include "Estructuras/cola.h"
+#include "Estructuras/billetera.h"
 #include "actividad.h"
+#include "moneda.h"
 
 class Tamagotchi
 {
@@ -22,8 +24,8 @@ public:
     QString tipo;
     QString nombre;
     Tamagotchi* siguiente;
-    Cola* monedas_ganadas;
-    Cola* monedas_recibidas;
+    Billetera* monedas_ganadas;
+    Billetera* monedas_recibidas;
     void recibir_monedas(int cant);
     void quitar_monedas(int cant);
     int resistencia_sueno;

@@ -15,6 +15,9 @@ Tamagotchi::Tamagotchi(QString nombre, QString tipo)
     this->cant_monedas = 0;
     this->tipo = tipo;
 
+    monedas_ganadas = new Billetera();
+    monedas_recibidas = new Billetera();
+
     if(tipo == "Fuerte")
     {
         resistencia_hambre = 0;
@@ -35,15 +38,13 @@ Tamagotchi::Tamagotchi(QString nombre, QString tipo)
     }
 }
 
+
 void Tamagotchi::recibir_monedas(int cant)
 {
-
+    monedas_ganadas->poner(new Moneda(cant));
 }
 
 void Tamagotchi::quitar_monedas(int cant)
 {
-    for(int x = 0; x < cant; x++)
-    {
-        monedas_ganadas->quitarCola();
-    }
+
 }

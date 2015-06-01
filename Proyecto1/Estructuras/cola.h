@@ -2,19 +2,19 @@
 #define COLA_H
 
 #include <iostream>
-#include "nodo.h"
+#include "qnodo.h"
 
 class Cola
 {
 public:
     Cola();
-    bool quitarCola();
-    void ponerCola(Nodo* nodo);
-    Nodo* getFrente();
-    void anular();
+    void quitarCola();
+    void ponerCola(QNodo* nodo);
+    QNodo* getFrente();
     bool vacia();
-    Nodo* frente;
-    Nodo* ultimo;
+    QNodo* frente;
+    QNodo* ultimo;
+    int size;
 };
 
 #endif // COLA_H
